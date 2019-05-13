@@ -1,0 +1,13 @@
+version: '2'
+services:
+
+  php:
+    build:
+      context: ./
+      dockerfile: ./php.docker
+    volumes:
+      - ./:/var/www
+    ports:
+      - 80:80
+    environment:
+      - "XDEBUG_CONFIG=remote_host=192.168.0.103"
