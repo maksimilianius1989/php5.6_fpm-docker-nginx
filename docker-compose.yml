@@ -1,13 +1,23 @@
 version: '2'
 services:
 
-  php:
+  nginx:
     build:
       context: ./
-      dockerfile: ./php.docker
+      dockerfile: nginx.docker
     volumes:
       - ./:/var/www
     ports:
-      - 80:80
+      - "8801:80"
+    links:
+      - php-fpm
+    restart: always
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: php.docker
+    volumes:
+      - ./:/var/www
     environment:
       - "XDEBUG_CONFIG=remote_host=192.168.0.103"
